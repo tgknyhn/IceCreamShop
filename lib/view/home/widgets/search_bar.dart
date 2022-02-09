@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ice_cream_shop/core/init/constants/padding_constants.dart';
 import '../../../core/init/constants/border_constants.dart';
 import '../../../core/init/constants/image_constants.dart';
 import '../../../core/init/constants/margin_constants.dart';
@@ -51,16 +52,19 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   Widget filterButton(context) {
-    return TextButton(
-      style: filterButtonStyle(),
-      child: Row(
-        children: [
-          Expanded(flex: 5, child: filterIcon()),
-          const Expanded(flex: 1, child: Spacer()),
-          Expanded(flex: 5, child: filterButtonText()),
-        ],
+    return Padding(
+      padding: EdgeInsets.all(PaddingConstants.instance.paddingMin),
+      child: TextButton(
+        style: filterButtonStyle(),
+        child: Row(
+          children: [
+            Expanded(flex: 5, child: filterIcon()),
+            const Expanded(flex: 1, child: Spacer()),
+            Expanded(flex: 5, child: filterButtonText()),
+          ],
+        ),
+        onPressed: () {},
       ),
-      onPressed: () {},
     );
   }
 

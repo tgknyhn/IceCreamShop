@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ice_cream_shop/core/init/constants/button_size_constants.dart';
 import 'package:ice_cream_shop/core/init/constants/dollar_size_constants.dart';
+import 'package:ice_cream_shop/core/init/constants/padding_constants.dart';
 import 'package:ice_cream_shop/core/init/theme/color_scheme.dart';
 import 'package:ice_cream_shop/core/widgets/add_button.dart';
 import 'package:ice_cream_shop/core/widgets/dollar_sign.dart';
 
+import '../../../core/init/constants/border_constants.dart';
 import '../../../core/init/constants/image_constants.dart';
 import '../../../core/init/constants/margin_constants.dart';
 
@@ -30,7 +32,7 @@ class TopItem extends StatefulWidget {
 
   final List<String> flavourDescription = [
     "With strawberry and lemon jam",
-    "With vanilla and caramel",
+    "With vanilla and caramel jam",
   ];
 
   final List<double> prices = [
@@ -49,7 +51,7 @@ class _TopItemState extends State<TopItem> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(flex: 1, child: topItemText(context)),
+        Expanded(flex: 1, child: topItemText()),
         Expanded(
           flex: 15,
           child: Row(
@@ -61,6 +63,7 @@ class _TopItemState extends State<TopItem> {
                   color: widget.colors[0],
                   image: widget.images[0],
                   price: widget.prices[0],
+                  isLeft: true,
                 ),
               ),
               Expanded(
@@ -70,6 +73,7 @@ class _TopItemState extends State<TopItem> {
                   color: widget.colors[1],
                   image: widget.images[1],
                   price: widget.prices[1],
+                  isLeft: false,
                 ),
               ),
             ],
@@ -80,30 +84,55 @@ class _TopItemState extends State<TopItem> {
     );
   }
 
-  Card flavourCard({required Color? color, required String flavourDescription, required String flavourName, required Image image, required double price}) {
+  Card flavourCard({required Color? color, required String flavourDescription, required String flavourName, required Image image, required double price, required bool isLeft}) {
     return Card(
-      margin: EdgeInsets.all(MarginConstants.instance.marginHigh),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(BorderConstants.instance.circularRadiusMedium)),
+      margin: flavourMargin(isLeft),
       color: color,
-      child: Column(
-        children: [
-          Expanded(flex: 6, child: image),
-          Expanded(flex: 1, child: Text(flavourName)),
-          Expanded(flex: 1, child: Text(flavourDescription)),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(flex: 1, child: DollarSign(size: DollarSizeConstants.instance.sizeMedium)),
-                Expanded(flex: 1, child: Text(price.toStringAsFixed(2))),
-                Expanded(flex: 1, child: AddButton(size: ButtonSizeConstants.instance.medium)),
-              ],
-            ),
-          )
-        ],
+      child: Padding(
+        padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(flex: 10, child: Center(child: image)),
+            Expanded(flex: 2, child: flavourTitleWidget(flavourName)),
+            Expanded(flex: 3, child: flavourDescWidget(flavourDescription)),
+            Expanded(flex: 3, child: priceRow(price)),
+          ],
+        ),
       ),
     );
   }
 
-  Widget topItemText(context) {
+  Text flavourDescWidget(String flavourDescription) {
+    return Text(flavourDescription, style: Theme.of(context).textTheme.bodyText1);
+  }
+
+  Text flavourTitleWidget(String flavourName) {
+    return Text(flavourName, style: Theme.of(context).textTheme.headline6);
+  }
+
+  EdgeInsets flavourMargin(bool isLeft) {
+    if (isLeft) {
+      return EdgeInsets.fromLTRB(MarginConstants.instance.marginHigh, MarginConstants.instance.marginMedium, MarginConstants.instance.marginMin, MarginConstants.instance.marginHigh);
+    } else {
+      return EdgeInsets.fromLTRB(MarginConstants.instance.marginMin, MarginConstants.instance.marginMedium, MarginConstants.instance.marginHigh, MarginConstants.instance.marginHigh);
+    }
+  }
+
+  Widget priceRow(double price) {
+    return Row(
+      children: [
+        Expanded(flex: 1, child: DollarSign(size: DollarSizeConstants.instance.sizeMedium)),
+        Expanded(flex: 4, child: priceText(price)),
+        Expanded(flex: 2, child: AddButton(size: ButtonSizeConstants.instance.medium)),
+      ],
+    );
+  }
+
+  Text priceText(double price) => Text(price.toStringAsFixed(2), style: Theme.of(context).textTheme.headline6);
+
+  Widget topItemText() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: MarginConstants.instance.marginHigh),
       child: Text("Top Item", style: Theme.of(context).textTheme.headline6),

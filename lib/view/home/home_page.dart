@@ -43,9 +43,10 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Expanded(flex: 4, child: Greeting()),
-        Expanded(flex: 5, child: SearchBar(height: height, width: width)),
+        Expanded(flex: 6, child: SearchBar(height: height, width: width)),
+        const Spacer(flex: 1),
         Expanded(flex: 10, child: TopFlavours(height: height, width: width, rate: 4.9, price: 14.60)),
-        Spacer(flex: 1),
+        const Spacer(flex: 2),
         Expanded(flex: 6, child: PopularIceCream(height: height, width: width)),
         Expanded(flex: 16, child: TopItem(height: height, width: width)),
       ],

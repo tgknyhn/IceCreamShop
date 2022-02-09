@@ -14,7 +14,11 @@ class AddButton extends StatelessWidget {
       backgroundColor: HomeColorScheme.instance?.pink,
       child: IconButton(
         onPressed: () {},
-        icon: const Icon(Icons.add),
+        icon: Icon(
+          Icons.add,
+          color: HomeColorScheme.instance?.white,
+          size: size * 0.8,
+        ),
         iconSize: size,
       ),
     );

@@ -16,6 +16,7 @@ class TopFlavours extends StatefulWidget {
 
   final double width, height;
   final double rate, price;
+  final String title = "Vanilla Ice Cream";
 
   @override
   _TopFlavoursState createState() => _TopFlavoursState();
@@ -27,56 +28,53 @@ class _TopFlavoursState extends State<TopFlavours> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(flex: 1, child: topFlavoursText(context)),
-        Expanded(flex: 5, child: iceCreamCard(context)),
+        Expanded(flex: 1, child: topFlavoursText()),
+        Expanded(flex: 5, child: iceCreamCard()),
       ],
     );
   }
 
-  Widget topFlavoursText(context) {
+  Widget topFlavoursText() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: MarginConstants.instance.marginHigh),
-      child: Text(
-        "Top Flavours",
-        style: Theme.of(context).textTheme.headline6,
-      ),
+      child: Text("Top Flavours", style: Theme.of(context).textTheme.headline6),
     );
   }
 
-  Card iceCreamCard(BuildContext context) {
+  Card iceCreamCard() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(BorderConstants.instance.circularRadiusMedium)),
-      margin: EdgeInsets.symmetric(horizontal: MarginConstants.instance.marginHigh, vertical: MarginConstants.instance.marginMedium),
-      color: HomeColorScheme.instance?.pingkLight,
+      margin: EdgeInsets.symmetric(horizontal: MarginConstants.instance.marginHigh),
+      color: HomeColorScheme.instance?.vanillaDark,
       child: Row(
         children: [
           Expanded(flex: 1, child: iceCreamPhoto()),
-          Expanded(flex: 1, child: iceCreamInfo(context)),
+          Expanded(flex: 1, child: iceCreamInfo()),
         ],
       ),
     );
   }
 
-  Widget iceCreamInfo(BuildContext context) {
+  Widget iceCreamInfo() {
     return Padding(
       padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
       child: Column(
         children: [
           const Spacer(flex: 1),
-          Expanded(flex: 2, child: iceCreamName(context)),
-          Expanded(flex: 3, child: amountAndRateRow(context)),
-          Expanded(flex: 3, child: priceAndButtonRow(context)),
+          Expanded(flex: 2, child: iceCreamName()),
+          Expanded(flex: 3, child: amountAndRateRow()),
+          Expanded(flex: 3, child: priceAndButtonRow()),
         ],
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
     );
   }
 
-  Row priceAndButtonRow(BuildContext context) {
+  Row priceAndButtonRow() {
     return Row(
       children: [
         DollarSign(size: DollarSizeConstants.instance.sizeMedium),
-        priceText(context),
+        priceText(),
         const Spacer(flex: 2),
         AddButton(size: ButtonSizeConstants.instance.max),
         const Spacer(flex: 1),
@@ -85,41 +83,38 @@ class _TopFlavoursState extends State<TopFlavours> {
     );
   }
 
-  Text priceText(BuildContext context) {
-    return Text(
-      widget.price.toStringAsFixed(2),
-      style: Theme.of(context).textTheme.headline6,
-    );
+  Text priceText() {
+    return Text(widget.price.toStringAsFixed(2), style: Theme.of(context).textTheme.headline6);
   }
 
-  Row amountAndRateRow(BuildContext context) {
+  Row amountAndRateRow() {
     return Row(
       children: [
-        Expanded(flex: 1, child: iceCreamAmount(context)),
+        Expanded(flex: 1, child: iceCreamAmount()),
         const Spacer(flex: 1),
-        Expanded(flex: 1, child: iceCreamRate(context)),
+        Expanded(flex: 1, child: iceCreamRate()),
         const Spacer(flex: 1),
       ],
     );
   }
 
-  Widget iceCreamRate(BuildContext context) {
+  Widget iceCreamRate() {
     return Row(
       children: [
         const Expanded(flex: 1, child: StarImage(isEmpty: false, size: StarSizes.MIN)),
-        Expanded(flex: 1, child: rateValue(context)),
+        Expanded(flex: 1, child: rateValue()),
       ],
     );
   }
 
-  Text rateValue(BuildContext context) {
+  Text rateValue() {
     return Text(
       widget.rate.toStringAsFixed(1),
       style: Theme.of(context).textTheme.subtitle2,
     );
   }
 
-  Widget iceCreamAmount(BuildContext context) {
+  Widget iceCreamAmount() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: PaddingConstants.instance.paddingMin),
       decoration: amountDecoration(),
@@ -134,13 +129,13 @@ class _TopFlavoursState extends State<TopFlavours> {
     );
   }
 
-  Text iceCreamName(BuildContext context) => Text("Vanilla Ice Cream", style: Theme.of(context).textTheme.headline6);
+  Text iceCreamName() => Text(widget.title, style: Theme.of(context).textTheme.headline6);
 
   Widget iceCreamPhoto() {
     return Padding(
-      padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
+      padding: EdgeInsets.all(PaddingConstants.instance.paddingHigh),
       child: SizedBox(
-        child: Image.asset(ImageConstants.instance.strawberry),
+        child: Image.asset(ImageConstants.instance.vanilla),
       ),
     );
   }

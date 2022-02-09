@@ -40,7 +40,6 @@ class _PopularIceCreamState extends State<PopularIceCream> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         popularIceCreamText(context),
@@ -51,17 +50,16 @@ class _PopularIceCreamState extends State<PopularIceCream> {
 
   Widget iceCreamHorizontalList(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: MarginConstants.instance.marginHigh, vertical: MarginConstants.instance.marginMedium),
       height: widget.height * 0.05,
-      margin: EdgeInsets.symmetric(horizontal: MarginConstants.instance.marginHigh, vertical: MarginConstants.instance.marginHigh),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
           iceCreamCard(context: context, name: widget.iceCreamNames[0], image: widget.images[0], colorDark: widget.colors[0], colorLight: widget.colors[1]),
-          SizedBox(width: widget.width * 0.03),
+          SizedBox(width: widget.width * 0.03), // Used for spacing between cards
           iceCreamCard(context: context, name: widget.iceCreamNames[1], image: widget.images[1], colorDark: widget.colors[2], colorLight: widget.colors[3]),
-          SizedBox(width: widget.width * 0.03),
+          SizedBox(width: widget.width * 0.03), // Used for spacing between cards
           iceCreamCard(context: context, name: widget.iceCreamNames[2], image: widget.images[2], colorDark: widget.colors[4], colorLight: widget.colors[5]),
-          SizedBox(width: widget.width * 0.03),
         ],
       ),
     );
