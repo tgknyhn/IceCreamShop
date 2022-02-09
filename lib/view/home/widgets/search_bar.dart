@@ -1,0 +1,91 @@
+import 'package:flutter/material.dart';
+import '../../../core/init/constants/border_constants.dart';
+import '../../../core/init/constants/image_constants.dart';
+import '../../../core/init/constants/margin_constants.dart';
+import '../../../core/init/theme/color_scheme.dart';
+
+class SearchBar extends StatefulWidget {
+  const SearchBar({Key? key, required this.width, required this.height}) : super(key: key);
+
+  final double width, height;
+
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(MarginConstants.instance.marginHigh),
+      decoration: containerDecoration(),
+      child: searchRow(context),
+    );
+  }
+
+  BoxDecoration containerDecoration() {
+    return BoxDecoration(
+      color: HomeColorScheme.instance?.gray,
+      borderRadius: BorderRadiusDirectional.circular(BorderConstants.instance.circularRadiusLow),
+    );
+  }
+
+  Row searchRow(context) {
+    return Row(
+      children: [
+        Expanded(flex: 2, child: searchIcon()),
+        Expanded(flex: 6, child: searchTextField()),
+        const Spacer(flex: 1),
+        Expanded(flex: 4, child: filterButton(context)),
+      ],
+    );
+  }
+
+  TextField searchTextField() {
+    return const TextField(decoration: InputDecoration(border: InputBorder.none, hintText: "Search"));
+  }
+
+  Widget filterButton(context) {
+    return TextButton(
+      style: filterButtonStyle(),
+      child: Row(
+        children: [
+          Expanded(flex: 5, child: filterIcon()),
+          const Expanded(flex: 1, child: Spacer()),
+          Expanded(flex: 5, child: filterButtonText()),
+        ],
+      ),
+      onPressed: () {},
+    );
+  }
+
+  Text filterButtonText() {
+    return Text(
+      "Filter",
+      style: TextStyle(color: HomeColorScheme.instance?.white),
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+
+  ButtonStyle filterButtonStyle() {
+    return ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(HomeColorScheme.instance?.pink),
+      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(BorderConstants.instance.circularRadiusMedium),
+      )),
+    );
+  }
+
+  Widget filterIcon() {
+    return SizedBox(
+      child: Image.asset(ImageConstants.instance.filterIcon),
+    );
+  }
+
+  Icon searchIcon() => const Icon(Icons.search);
+}
