@@ -5,6 +5,7 @@ import 'package:ice_cream_shop/core/init/theme/color_scheme.dart';
 
 import '../../../core/init/constants/border_constants.dart';
 import '../../../core/init/constants/margin_constants.dart';
+import '../../product/product_page.dart';
 
 class PopularIceCream extends StatefulWidget {
   PopularIceCream({Key? key, required this.width, required this.height}) : super(key: key);
@@ -65,22 +66,43 @@ class _PopularIceCreamState extends State<PopularIceCream> {
     );
   }
 
-  Row iceCreamCard({required BuildContext context, required String name, required Image image, required Color? colorDark, required Color? colorLight}) {
-    return Row(
-      children: [
-        iceCreamImage(image: image, color: colorDark),
-        iceCreamName(context: context, color: colorLight, iceCreamName: name),
-      ],
+  Widget iceCreamCard({required BuildContext context, required String name, required Image image, required Color? colorDark, required Color? colorLight}) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: ((context) => ProductPage(
+                  color: colorLight,
+                  image: image,
+                  productName: name,
+                  productPrice: 14.60,
+                  productReviewCount: 230,
+                  productScore: 4.9,
+                )),
+          ),
+        );
+      },
+      child: Row(
+        children: [
+          iceCreamImage(image: image, color: colorDark),
+          iceCreamName(context: context, color: colorLight, iceCreamName: name),
+        ],
+      ),
     );
   }
 
   Container iceCreamName({required BuildContext context, required Color? color, required String iceCreamName}) {
     return Container(
       decoration: cardDecoration(color),
-      child: Padding(
+      child: Center(
+          child: Padding(
         padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
-        child: Center(child: Text(iceCreamName, style: Theme.of(context).textTheme.headline6)),
-      ),
+        child: Text(
+          iceCreamName,
+          style: Theme.of(context).textTheme.headline6,
+          textScaleFactor: 0.6,
+        ),
+      )),
     );
   }
 

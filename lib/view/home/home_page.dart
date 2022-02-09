@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 

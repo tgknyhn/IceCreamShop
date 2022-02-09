@@ -8,4 +8,6 @@ class BorderConstants {
   double circularRadiusLow = 10;
   double circularRadiusMedium = 15;
   double circularRadiusHigh = 20;
+  double circularRadiusVeryHigh = 35;
+  double circularRadiusUltraHigh = 50;
 }

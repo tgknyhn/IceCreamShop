@@ -53,7 +53,7 @@ class _TopItemState extends State<TopItem> {
       children: [
         Expanded(flex: 1, child: topItemText()),
         Expanded(
-          flex: 15,
+          flex: 10,
           child: Row(
             children: [
               Expanded(
@@ -97,7 +97,7 @@ class _TopItemState extends State<TopItem> {
             Expanded(flex: 10, child: Center(child: image)),
             Expanded(flex: 2, child: flavourTitleWidget(flavourName)),
             Expanded(flex: 3, child: flavourDescWidget(flavourDescription)),
-            Expanded(flex: 3, child: priceRow(price)),
+            Expanded(flex: 3, child: priceRow(price, color, image, flavourName)),
           ],
         ),
       ),
@@ -120,12 +120,22 @@ class _TopItemState extends State<TopItem> {
     }
   }
 
-  Widget priceRow(double price) {
+  Widget priceRow(double price, Color? color, Image image, String flavourName) {
     return Row(
       children: [
         Expanded(flex: 1, child: DollarSign(size: DollarSizeConstants.instance.sizeMedium)),
         Expanded(flex: 4, child: priceText(price)),
-        Expanded(flex: 2, child: AddButton(size: ButtonSizeConstants.instance.medium)),
+        Expanded(
+            flex: 2,
+            child: AddButton(
+              size: ButtonSizeConstants.instance.medium,
+              color: color,
+              image: image,
+              productName: flavourName,
+              productPrice: price,
+              productReviewCount: 123,
+              productScore: 3.6,
+            )),
       ],
     );
   }

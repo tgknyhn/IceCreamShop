@@ -14,7 +14,9 @@ class HomeColorScheme {
   final Color gray = const Color(0xFFf3f3f3);
   final Color white = const Color(0xFFFFFFFF);
   final Color yellow = const Color(0xFFFFF091);
+  final Color starYellow = const Color(0xFFC0A600);
   final Color blueLight = const Color(0xFFdef4ff);
+  final Color black = const Color(0xFF000000);
 
   // Ice Cream Colors
   final Color strawberryDark = const Color(0xFFFB5392);

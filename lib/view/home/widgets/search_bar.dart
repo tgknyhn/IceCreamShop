@@ -58,9 +58,11 @@ class _SearchBarState extends State<SearchBar> {
         style: filterButtonStyle(),
         child: Row(
           children: [
-            Expanded(flex: 5, child: filterIcon()),
-            const Expanded(flex: 1, child: Spacer()),
-            Expanded(flex: 5, child: filterButtonText()),
+            const Spacer(),
+            filterIcon(),
+            const Spacer(),
+            filterButtonText(),
+            const Spacer(),
           ],
         ),
         onPressed: () {},

@@ -15,7 +15,7 @@ class TopFlavours extends StatefulWidget {
   const TopFlavours({Key? key, required this.width, required this.height, required this.rate, required this.price}) : super(key: key);
 
   final double width, height;
-  final double rate, price;
+  final double rate, price, reviewCount = 230;
   final String title = "Vanilla Ice Cream";
 
   @override
@@ -76,7 +76,15 @@ class _TopFlavoursState extends State<TopFlavours> {
         DollarSign(size: DollarSizeConstants.instance.sizeMedium),
         priceText(),
         const Spacer(flex: 2),
-        AddButton(size: ButtonSizeConstants.instance.max),
+        AddButton(
+          size: ButtonSizeConstants.instance.max,
+          color: HomeColorScheme.instance?.vanillaDark,
+          image: Image.asset(ImageConstants.instance.vanilla),
+          productName: 'Vanilla Ice Cream',
+          productPrice: widget.price,
+          productReviewCount: widget.reviewCount,
+          productScore: widget.rate,
+        ),
         const Spacer(flex: 1),
       ],
       mainAxisAlignment: MainAxisAlignment.start,
@@ -90,9 +98,9 @@ class _TopFlavoursState extends State<TopFlavours> {
   Row amountAndRateRow() {
     return Row(
       children: [
-        Expanded(flex: 1, child: iceCreamAmount()),
+        Expanded(flex: 2, child: iceCreamAmount()),
         const Spacer(flex: 1),
-        Expanded(flex: 1, child: iceCreamRate()),
+        Expanded(flex: 2, child: iceCreamRate()),
         const Spacer(flex: 1),
       ],
     );

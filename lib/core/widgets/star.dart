@@ -16,7 +16,7 @@ class StarImage extends StatelessWidget {
     return Icon(
       Icons.star,
       size: getSize(size),
-      color: HomeColorScheme.instance?.yellow,
+      color: HomeColorScheme.instance?.starYellow,
     );
   }
 
