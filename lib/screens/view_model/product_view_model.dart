@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ice_cream_shop/core/init/theme/color_scheme.dart';
-
 import '../../models/product_model.dart';
 import '../view/product/product_page.dart';
 
@@ -17,8 +14,6 @@ class ProductViewModel {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     CollectionReference products = firestore.collection('products');
-
-    print('product name: $productName');
 
     products.where('productName', isEqualTo: productName).get().then((value) {
       DocumentSnapshot productDoc = value.docs[0];

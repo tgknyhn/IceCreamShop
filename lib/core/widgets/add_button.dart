@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ice_cream_shop/screens/view_model/product_view_model.dart';
-
-import '../../screens/view/product/product_page.dart';
 import '../init/theme/color_scheme.dart';
 
+/// The general plus shaped button to use in the app
 class AddButton extends StatelessWidget {
-  const AddButton({
-    Key? key,
-    required this.size,
-    required this.productName,
-  }) : super(key: key);
+  const AddButton({Key? key, required this.size, required this.productName}) : super(key: key);
 
   final double size;
   final String productName;

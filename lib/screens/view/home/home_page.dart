@@ -7,6 +7,7 @@ import 'widgets/search_bar.dart';
 import 'widgets/top_flavours.dart';
 
 class HomePage extends StatefulWidget {
+  /// HomePage class constructor takes no parameter. It builds and returns the home_page
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -16,30 +17,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    // Applies necessary features to application
+    _systemFeatures();
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: homeConstrainedBox(width, height),
+      resizeToAvoidBottomInset: false, // To avoid shrinking when opening virtual keyboard
+      body: _homeConstrainedBox(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
     );
   }
 
-  ConstrainedBox homeConstrainedBox(double width, double height) {
+  void _systemFeatures() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
+
+  ConstrainedBox _homeConstrainedBox(double width, double height) {
     return ConstrainedBox(
       constraints: BoxConstraints(
         minWidth: width,
         minHeight: height,
       ),
-      child: IntrinsicHeight(
-        child: homePageWidgets(height, width),
-      ),
+      child: IntrinsicHeight(child: _homePageWidgets(height, width)),
     );
   }
 
-  Column homePageWidgets(double height, double width) {
+  Column _homePageWidgets(double height, double width) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,

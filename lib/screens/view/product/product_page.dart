@@ -11,6 +11,14 @@ import '../../../models/product_model.dart';
 import 'package:like_button/like_button.dart';
 
 class ProductPage extends StatefulWidget {
+  /// ProductPage class constructor only takes one required parameter which is a [product] object
+  /// [product] object is created using [product_view_model] class and product name. For example;
+  /// ```dart
+  /// ProductViewModel.instance.goToProductPage(context: context, productName: productName);
+  /// ```
+  /// This let's user to create product page by only using [productName]
+  /// Product object contains all necessary information about an ice cream product and it uses
+  /// **Firestore Cloud** to receive these informations.
   const ProductPage({Key? key, required this.product}) : super(key: key);
 
   final Product product;
@@ -25,143 +33,67 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: productPageAppBar(),
-      body: productPageBaseColumn(),
+      appBar: _productPageAppBar(),
+      body: _productPageBaseColumn(),
     );
   }
 
-  Column productPageBaseColumn() {
+  AppBar _productPageAppBar() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: widget.product.lightColor,
+      elevation: 0,
+      actions: [
+        Expanded(flex: 1, child: _backArrowButton()),
+        const Spacer(flex: 3),
+        Expanded(flex: 1, child: _favouriteButton()),
+      ],
+    );
+  }
+
+  Widget _favouriteButton() => const LikeButton();
+
+  IconButton _backArrowButton() {
+    return IconButton(
+      icon: Icon(
+        Icons.arrow_back,
+        color: HomeColorScheme.instance?.pink,
+      ),
+      onPressed: () => Navigator.pop(context),
+    );
+  }
+
+  Column _productPageBaseColumn() {
     return Column(
       children: [
-        Expanded(child: productImageView()),
-        productNameView(),
-        ratingRow(),
-        productCountPriceRow(),
-        productDescriptionView(),
-        addToCardButton(),
+        Expanded(child: _productImageView()),
+        _productNameView(),
+        _ratingRow(),
+        _productCountPriceRow(),
+        _productDescriptionView(),
+        _addToCardButton(),
       ],
       crossAxisAlignment: CrossAxisAlignment.stretch,
     );
   }
 
-  Widget addToCardButton() {
-    return Padding(
-      padding: EdgeInsets.all(PaddingConstants.instance.paddingVeryHigh),
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Text("Add To Card", style: Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold)),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(widget.product.lightColor),
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(BorderConstants.instance.circularRadiusLow))),
+  Container _productImageView() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadiusDirectional.only(
+          bottomStart: Radius.circular(BorderConstants.instance.circularRadiusUltraHigh),
+          bottomEnd: Radius.circular(BorderConstants.instance.circularRadiusUltraHigh),
         ),
+        color: widget.product.lightColor,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
+        child: widget.product.image,
       ),
     );
   }
 
-  Widget productDescriptionView() {
-    return Padding(
-      padding: EdgeInsets.all(PaddingConstants.instance.paddingVeryHigh),
-      child: Text(
-        widget.product.description,
-        style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.normal),
-      ),
-    );
-  }
-
-  Widget productCountPriceRow() {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(PaddingConstants.instance.paddingVeryHigh, PaddingConstants.instance.paddingMedium, PaddingConstants.instance.paddingVeryHigh, 0),
-      child: Row(
-        children: [
-          minusButton(),
-          productCountView(),
-          plusButton(),
-          const Spacer(),
-          DollarSign(size: DollarSizeConstants.instance.sizeMax),
-          currentPriceView(),
-        ],
-      ),
-    );
-  }
-
-  Widget currentPriceView() {
-    final String currentPrice = (widget.product.price * _productCount).toStringAsFixed(2);
-
-    return Text(currentPrice, style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight: FontWeight.bold));
-  }
-
-  Widget productCountView() {
-    return Padding(
-      padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
-      child: Text(
-        '$_productCount Kg',
-        style: Theme.of(context).textTheme.subtitle2,
-      ),
-    );
-  }
-
-  Widget ratingRow() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: PaddingConstants.instance.paddingVeryHigh, vertical: PaddingConstants.instance.paddingMedium),
-      child: Row(
-        children: [
-          calculateStars(),
-          scoreView(),
-          reviewCountView(),
-        ],
-      ),
-    );
-  }
-
-  Widget reviewCountView() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: PaddingConstants.instance.paddingMedium),
-      child: Text(
-        '(${widget.product.reviewCount.toInt().toString()} Reviews)',
-        style: Theme.of(context).textTheme.subtitle2,
-      ),
-    );
-  }
-
-  Text scoreView() => Text(widget.product.score.toStringAsFixed(1));
-
-  Widget calculateStars() {
-    final int score = widget.product.score.floor();
-
-    switch (score) {
-      case 0:
-        return starRow(true, true, true, true, true);
-      case 1:
-        return starRow(false, true, true, true, true);
-      case 2:
-        return starRow(false, false, true, true, true);
-      case 3:
-        return starRow(false, false, false, true, true);
-      case 4:
-        return starRow(false, false, false, false, true);
-      case 5:
-        return starRow(false, false, false, false, false);
-      default:
-        return starRow(true, true, true, true, true);
-    }
-  }
-
-  Widget starRow(bool star1, bool star2, bool star3, bool star4, bool star5) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0, 0, PaddingConstants.instance.paddingMedium, 0),
-      child: Row(
-        children: [
-          StarImage(isEmpty: star1, size: StarSizes.MEDIUM),
-          StarImage(isEmpty: star2, size: StarSizes.MEDIUM),
-          StarImage(isEmpty: star3, size: StarSizes.MEDIUM),
-          StarImage(isEmpty: star4, size: StarSizes.MEDIUM),
-          StarImage(isEmpty: star5, size: StarSizes.MEDIUM)
-        ],
-      ),
-    );
-  }
-
-  Widget productNameView() {
+  Widget _productNameView() {
     return Padding(
       padding: EdgeInsets.fromLTRB(
         PaddingConstants.instance.paddingVeryHigh,
@@ -179,54 +111,85 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  Container productImageView() {
+  Widget _ratingRow() {
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: PaddingConstants.instance.paddingVeryHigh, vertical: PaddingConstants.instance.paddingMedium),
+        child: Row(
+          children: [
+            _calculateStars(),
+            _scoreView(),
+            _reviewCountView(),
+          ],
+        ));
+  }
+
+  Widget _calculateStars() {
+    final int score = widget.product.score.floor();
+
+    switch (score) {
+      case 0:
+        return _starRow(true, true, true, true, true);
+      case 1:
+        return _starRow(false, true, true, true, true);
+      case 2:
+        return _starRow(false, false, true, true, true);
+      case 3:
+        return _starRow(false, false, false, true, true);
+      case 4:
+        return _starRow(false, false, false, false, true);
+      case 5:
+        return _starRow(false, false, false, false, false);
+      default:
+        return _starRow(true, true, true, true, true);
+    }
+  }
+
+  Widget _starRow(bool star1, bool star2, bool star3, bool star4, bool star5) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 0, PaddingConstants.instance.paddingMedium, 0),
+      child: Row(
+        children: [
+          StarImage(isEmpty: star1, size: StarSizes.MEDIUM),
+          StarImage(isEmpty: star2, size: StarSizes.MEDIUM),
+          StarImage(isEmpty: star3, size: StarSizes.MEDIUM),
+          StarImage(isEmpty: star4, size: StarSizes.MEDIUM),
+          StarImage(isEmpty: star5, size: StarSizes.MEDIUM)
+        ],
+      ),
+    );
+  }
+
+  Text _scoreView() => Text(widget.product.score.toStringAsFixed(1));
+
+  Widget _reviewCountView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: PaddingConstants.instance.paddingMedium),
+      child: Text(
+        '(${widget.product.reviewCount.toInt().toString()} Reviews)',
+        style: Theme.of(context).textTheme.subtitle2,
+      ),
+    );
+  }
+
+  Widget _productCountPriceRow() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(PaddingConstants.instance.paddingVeryHigh, PaddingConstants.instance.paddingMedium, PaddingConstants.instance.paddingVeryHigh, 0),
+      child: Row(
+        children: [
+          _minusButton(),
+          _productCountView(),
+          _plusButton(),
+          const Spacer(),
+          DollarSign(size: DollarSizeConstants.instance.sizeMax),
+          _currentPriceView(),
+        ],
+      ),
+    );
+  }
+
+  Widget _minusButton() {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadiusDirectional.only(
-          bottomStart: Radius.circular(BorderConstants.instance.circularRadiusUltraHigh),
-          bottomEnd: Radius.circular(BorderConstants.instance.circularRadiusUltraHigh),
-        ),
-        color: widget.product.lightColor,
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
-        child: widget.product.image,
-      ),
-    );
-  }
-
-  AppBar productPageAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: widget.product.lightColor,
-      elevation: 0,
-      actions: [
-        Expanded(flex: 1, child: backArrowButton()),
-        const Spacer(flex: 3),
-        Expanded(flex: 1, child: favouriteButton()),
-      ],
-    );
-  }
-
-  Widget favouriteButton() {
-    return const LikeButton();
-  }
-
-  IconButton backArrowButton() {
-    return IconButton(
-      icon: Icon(
-        Icons.arrow_back,
-        color: HomeColorScheme.instance?.pink,
-      ),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-  }
-
-  Widget minusButton() {
-    return Container(
-      decoration: addMinusButtonDecoration(),
+      decoration: _addMinusButtonDecoration(),
       child: IconButton(
         onPressed: () {
           if (_productCount > 1) {
@@ -246,9 +209,19 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  Widget plusButton() {
+  Widget _productCountView() {
+    return Padding(
+      padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
+      child: Text(
+        '$_productCount Kg',
+        style: Theme.of(context).textTheme.subtitle2,
+      ),
+    );
+  }
+
+  Widget _plusButton() {
     return Container(
-      decoration: addMinusButtonDecoration(),
+      decoration: _addMinusButtonDecoration(),
       child: IconButton(
         onPressed: () {
           setState(() {
@@ -266,10 +239,40 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  BoxDecoration addMinusButtonDecoration() {
+  BoxDecoration _addMinusButtonDecoration() {
     return BoxDecoration(
       borderRadius: BorderRadiusDirectional.circular(BorderConstants.instance.circularRadiusLow),
       color: HomeColorScheme.instance?.pink,
+    );
+  }
+
+  Widget _currentPriceView() {
+    final String currentPrice = (widget.product.price * _productCount).toStringAsFixed(2);
+
+    return Text(currentPrice, style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight: FontWeight.bold));
+  }
+
+  Widget _productDescriptionView() {
+    return Padding(
+      padding: EdgeInsets.all(PaddingConstants.instance.paddingVeryHigh),
+      child: Text(
+        widget.product.description,
+        style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.normal),
+      ),
+    );
+  }
+
+  Widget _addToCardButton() {
+    return Padding(
+      padding: EdgeInsets.all(PaddingConstants.instance.paddingVeryHigh),
+      child: ElevatedButton(
+        onPressed: () {},
+        child: Text("Add To Card", style: Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold)),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(widget.product.lightColor),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(BorderConstants.instance.circularRadiusLow))),
+        ),
+      ),
     );
   }
 }
