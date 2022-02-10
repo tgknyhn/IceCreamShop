@@ -1,16 +1,16 @@
-# ice_cream_shop
+<h1 align="center"> Ice Cream Shop </h1>
 
-A new Flutter project.
+* This project has two screens.
+* GUI for the project is taken from [this](https://www.uplabs.com/posts/ice-cream-shop-mobile-app-867709e9-2a2c-4634-ab88-e513fb0ef21d) site 
+* Home Screen designed with dummy datas
+* Product (second screen) implemented using the data from Firestore Cloud
 
-## Getting Started
+<h2 align="center"> Home Screen </h2>
+<p align="center"> <img src="screenshots/home_page.jpeg"  style="vertical-align:down; margin:4px"> </p>
 
-This project is a starting point for a Flutter application.
+<h2 align="center"> Product Screen </h2>
+<p align="center"> <img src="screenshots/product_page.jpeg" style="vertical-align:down; margin:4px"> </p>
 
-A few resources to get you started if this is your first Flutter project:
+<h2 align="center"> Firestore Cloud </h2>
+<p align="center"> <img src="screenshots/firebase_product.png" style="vertical-align:down; margin:4px"> </p>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
