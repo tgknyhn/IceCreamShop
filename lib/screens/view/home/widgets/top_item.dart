@@ -35,8 +35,8 @@ class TopItem extends StatefulWidget {
   ];
 
   final List<double> prices = [
-    14.6,
-    18.9,
+    19.8,
+    20.99,
   ];
 
   @override

@@ -8,6 +8,7 @@ import '../../../core/init/theme/color_scheme.dart';
 import '../../../core/widgets/dollar_sign.dart';
 import '../../../core/widgets/star.dart';
 import '../../../models/product_model.dart';
+import 'package:like_button/like_button.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key, required this.product}) : super(key: key);
@@ -207,12 +208,8 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  IconButton favouriteButton() {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.favorite_border),
-      color: HomeColorScheme.instance?.pink,
-    );
+  Widget favouriteButton() {
+    return const LikeButton();
   }
 
   IconButton backArrowButton() {
@@ -221,7 +218,9 @@ class _ProductPageState extends State<ProductPage> {
         Icons.arrow_back,
         color: HomeColorScheme.instance?.pink,
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pop(context);
+      },
     );
   }
 
