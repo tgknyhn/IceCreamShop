@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "155927903246",
+    "project_id": "ice-cream-shop-c1f70",
+    "storage_bucket": "ice-cream-shop-c1f70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155927903246:android:43b2080700bb6d39d5105f",
+        "android_client_info": {
+          "package_name": "com.tgknyhn.ice_cream_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155927903246-8fubj8unfh0hjnd2kv3dslimvsktu1pt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuKHj4G_EVI3bPewhXy4EOSWTbmmHOxYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155927903246-8fubj8unfh0hjnd2kv3dslimvsktu1pt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
