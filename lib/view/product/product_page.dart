@@ -251,10 +251,12 @@ class _ProductPageState extends State<ProductPage> {
       decoration: addMinusButtonDecoration(),
       child: IconButton(
         onPressed: () {
-          setState(() {
-            _productCount--;
-            _currentPrice = _productCount * widget.productPrice;
-          });
+          if (_productCount > 1) {
+            setState(() {
+              _productCount--;
+              _currentPrice = _productCount * widget.productPrice;
+            });
+          }
         },
         icon: Icon(
           Icons.remove,
