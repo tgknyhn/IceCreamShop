@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../view/product/product_page.dart';
+import 'package:ice_cream_shop/screens/view_model/product_view_model.dart';
+
+import '../../screens/view/product/product_page.dart';
 import '../init/theme/color_scheme.dart';
 
 class AddButton extends StatelessWidget {
@@ -7,18 +9,10 @@ class AddButton extends StatelessWidget {
     Key? key,
     required this.size,
     required this.productName,
-    required this.productScore,
-    required this.productReviewCount,
-    required this.productPrice,
-    required this.image,
-    required this.color,
   }) : super(key: key);
 
-  final String productName;
-  final double productScore, productReviewCount, productPrice;
-  final Image image;
-  final Color? color;
   final double size;
+  final String productName;
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +20,7 @@ class AddButton extends StatelessWidget {
       radius: size,
       backgroundColor: HomeColorScheme.instance?.pink,
       child: IconButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: ((context) => ProductPage(
-                    color: color,
-                    image: image,
-                    productName: productName,
-                    productPrice: productPrice,
-                    productReviewCount: productReviewCount,
-                    productScore: productScore,
-                  )),
-            ),
-          );
-        },
+        onPressed: () => ProductViewModel.instance.goToProductPage(context: context, productName: productName),
         icon: Icon(
           Icons.add,
           color: HomeColorScheme.instance?.white,

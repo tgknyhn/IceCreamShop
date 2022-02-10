@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ice_cream_shop/core/init/constants/padding_constants.dart';
-import '../../../core/init/constants/border_constants.dart';
-import '../../../core/init/constants/image_constants.dart';
-import '../../../core/init/constants/margin_constants.dart';
-import '../../../core/init/theme/color_scheme.dart';
+import '../../../../core/init/constants/border_constants.dart';
+import '../../../../core/init/constants/image_constants.dart';
+import '../../../../core/init/constants/margin_constants.dart';
+import '../../../../core/init/constants/padding_constants.dart';
+import '../../../../core/init/theme/color_scheme.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({Key? key, required this.width, required this.height}) : super(key: key);

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ice_cream_shop/core/init/constants/image_constants.dart';
-import 'package:ice_cream_shop/core/init/constants/padding_constants.dart';
-import 'package:ice_cream_shop/core/init/theme/color_scheme.dart';
+import 'package:ice_cream_shop/screens/view_model/product_view_model.dart';
+import '../../../../core/init/constants/border_constants.dart';
+import '../../../../core/init/constants/image_constants.dart';
+import '../../../../core/init/constants/margin_constants.dart';
+import '../../../../core/init/constants/padding_constants.dart';
+import '../../../../core/init/theme/color_scheme.dart';
 
-import '../../../core/init/constants/border_constants.dart';
-import '../../../core/init/constants/margin_constants.dart';
 import '../../product/product_page.dart';
 
 class PopularIceCream extends StatefulWidget {
@@ -68,20 +69,7 @@ class _PopularIceCreamState extends State<PopularIceCream> {
 
   Widget iceCreamCard({required BuildContext context, required String name, required Image image, required Color? colorDark, required Color? colorLight}) {
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: ((context) => ProductPage(
-                  color: colorLight,
-                  image: image,
-                  productName: name,
-                  productPrice: 14.60,
-                  productReviewCount: 230,
-                  productScore: 4.9,
-                )),
-          ),
-        );
-      },
+      onTap: () => ProductViewModel.instance.goToProductPage(context: context, productName: name),
       child: Row(
         children: [
           iceCreamImage(image: image, color: colorDark),

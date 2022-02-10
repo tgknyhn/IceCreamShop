@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../init/enums/star_size_enum.dart';
 import '../init/theme/color_scheme.dart';
 

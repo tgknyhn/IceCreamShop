@@ -27,4 +27,37 @@ class HomeColorScheme {
 
   final Color caramelDark = const Color(0xFFb2bff8);
   final Color caramelLight = const Color(0xFFd3ddff);
+
+  final Color firstFlavourDark = const Color(0xFFFB5392);
+  final Color firstFlavourLight = const Color(0xFFFEDADC);
+
+  final Color secondFlavourDark = const Color(0xFF2558FF);
+  final Color secondFlavourLight = const Color(0xFFdef4ff);
+
+  Color getColor(String colorName) {
+    switch (colorName) {
+      case 'strawberryDark':
+        return strawberryDark;
+      case 'strawberryLight':
+        return strawberryLight;
+      case 'vanillaDark':
+        return vanillaDark;
+      case 'vanillaLight':
+        return vanillaLight;
+      case 'caramelDark':
+        return caramelDark;
+      case 'caramelLight':
+        return caramelLight;
+      case 'firstFlavourDark':
+        return firstFlavourDark;
+      case 'firstFlavourLight':
+        return firstFlavourLight;
+      case 'secondFlavourDark':
+        return secondFlavourDark;
+      case 'secondFlavourLight':
+        return secondFlavourLight;
+      default:
+        return black;
+    }
+  }
 }

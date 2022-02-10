@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:ice_cream_shop/core/init/constants/button_size_constants.dart';
-import 'package:ice_cream_shop/core/init/constants/dollar_size_constants.dart';
-import 'package:ice_cream_shop/core/init/constants/padding_constants.dart';
-import 'package:ice_cream_shop/core/init/enums/star_size_enum.dart';
-import 'package:ice_cream_shop/core/init/theme/color_scheme.dart';
-import 'package:ice_cream_shop/core/widgets/dollar_sign.dart';
-import 'package:ice_cream_shop/core/widgets/star.dart';
-
-import '../../core/init/constants/border_constants.dart';
+import '../../../core/init/constants/border_constants.dart';
+import '../../../core/init/constants/button_size_constants.dart';
+import '../../../core/init/constants/dollar_size_constants.dart';
+import '../../../core/init/constants/padding_constants.dart';
+import '../../../core/init/enums/star_size_enum.dart';
+import '../../../core/init/theme/color_scheme.dart';
+import '../../../core/widgets/dollar_sign.dart';
+import '../../../core/widgets/star.dart';
+import '../../../models/product_model.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({
-    Key? key,
-    required this.productName,
-    required this.productScore,
-    required this.productReviewCount,
-    required this.productPrice,
-    required this.image,
-    required this.color,
-  }) : super(key: key);
+  const ProductPage({Key? key, required this.product}) : super(key: key);
 
-  final String productName;
-  final double productScore, productReviewCount, productPrice;
-  final Image image;
-  final Color? color;
-  final String productDesc =
-      '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.''';
+  final Product product;
 
   @override
   _ProductPageState createState() => _ProductPageState();
@@ -33,13 +20,6 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int _productCount = 1;
-  late double _currentPrice = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentPrice = widget.productPrice;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +50,7 @@ class _ProductPageState extends State<ProductPage> {
         onPressed: () {},
         child: Text("Add To Card", style: Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold)),
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(widget.color),
+          backgroundColor: MaterialStateProperty.all(widget.product.lightColor),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(BorderConstants.instance.circularRadiusLow))),
         ),
       ),
@@ -81,7 +61,7 @@ class _ProductPageState extends State<ProductPage> {
     return Padding(
       padding: EdgeInsets.all(PaddingConstants.instance.paddingVeryHigh),
       child: Text(
-        widget.productDesc,
+        widget.product.description,
         style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.normal),
       ),
     );
@@ -104,10 +84,9 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   Widget currentPriceView() {
-    return Text(
-      _currentPrice.toStringAsFixed(2),
-      style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
-    );
+    final String currentPrice = (widget.product.price * _productCount).toStringAsFixed(2);
+
+    return Text(currentPrice, style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight: FontWeight.bold));
   }
 
   Widget productCountView() {
@@ -137,16 +116,16 @@ class _ProductPageState extends State<ProductPage> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: PaddingConstants.instance.paddingMedium),
       child: Text(
-        '(${widget.productReviewCount.toInt().toString()} Reviews)',
+        '(${widget.product.reviewCount.toInt().toString()} Reviews)',
         style: Theme.of(context).textTheme.subtitle2,
       ),
     );
   }
 
-  Text scoreView() => Text(widget.productScore.toStringAsFixed(1));
+  Text scoreView() => Text(widget.product.score.toStringAsFixed(1));
 
   Widget calculateStars() {
-    final int score = widget.productScore.floor();
+    final int score = widget.product.score.floor();
 
     switch (score) {
       case 0:
@@ -192,7 +171,7 @@ class _ProductPageState extends State<ProductPage> {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          widget.productName,
+          widget.product.name,
           style: Theme.of(context).textTheme.headline4?.copyWith(fontWeight: FontWeight.bold, color: HomeColorScheme.instance?.black),
         ),
       ),
@@ -206,11 +185,11 @@ class _ProductPageState extends State<ProductPage> {
           bottomStart: Radius.circular(BorderConstants.instance.circularRadiusUltraHigh),
           bottomEnd: Radius.circular(BorderConstants.instance.circularRadiusUltraHigh),
         ),
-        color: widget.color,
+        color: widget.product.lightColor,
       ),
       child: Padding(
         padding: EdgeInsets.all(PaddingConstants.instance.paddingMedium),
-        child: widget.image,
+        child: widget.product.image,
       ),
     );
   }
@@ -218,7 +197,7 @@ class _ProductPageState extends State<ProductPage> {
   AppBar productPageAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: widget.color,
+      backgroundColor: widget.product.lightColor,
       elevation: 0,
       actions: [
         Expanded(flex: 1, child: backArrowButton()),
@@ -254,7 +233,6 @@ class _ProductPageState extends State<ProductPage> {
           if (_productCount > 1) {
             setState(() {
               _productCount--;
-              _currentPrice = _productCount * widget.productPrice;
             });
           }
         },
@@ -276,7 +254,6 @@ class _ProductPageState extends State<ProductPage> {
         onPressed: () {
           setState(() {
             _productCount++;
-            _currentPrice = _productCount * widget.productPrice;
           });
         },
         icon: Icon(

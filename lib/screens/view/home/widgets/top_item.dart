@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ice_cream_shop/core/init/constants/button_size_constants.dart';
-import 'package:ice_cream_shop/core/init/constants/dollar_size_constants.dart';
-import 'package:ice_cream_shop/core/init/constants/padding_constants.dart';
-import 'package:ice_cream_shop/core/init/theme/color_scheme.dart';
-import 'package:ice_cream_shop/core/widgets/add_button.dart';
-import 'package:ice_cream_shop/core/widgets/dollar_sign.dart';
-
-import '../../../core/init/constants/border_constants.dart';
-import '../../../core/init/constants/image_constants.dart';
-import '../../../core/init/constants/margin_constants.dart';
+import '../../../../core/init/constants/border_constants.dart';
+import '../../../../core/init/constants/button_size_constants.dart';
+import '../../../../core/init/constants/dollar_size_constants.dart';
+import '../../../../core/init/constants/image_constants.dart';
+import '../../../../core/init/constants/margin_constants.dart';
+import '../../../../core/init/constants/padding_constants.dart';
+import '../../../../core/init/theme/color_scheme.dart';
+import '../../../../core/widgets/add_button.dart';
+import '../../../../core/widgets/dollar_sign.dart';
 
 class TopItem extends StatefulWidget {
   TopItem({Key? key, required this.height, required this.width}) : super(key: key);
@@ -125,17 +124,7 @@ class _TopItemState extends State<TopItem> {
       children: [
         Expanded(flex: 1, child: DollarSign(size: DollarSizeConstants.instance.sizeMedium)),
         Expanded(flex: 4, child: priceText(price)),
-        Expanded(
-            flex: 2,
-            child: AddButton(
-              size: ButtonSizeConstants.instance.medium,
-              color: color,
-              image: image,
-              productName: flavourName,
-              productPrice: price,
-              productReviewCount: 123,
-              productScore: 3.6,
-            )),
+        Expanded(flex: 2, child: AddButton(size: ButtonSizeConstants.instance.medium, productName: flavourName)),
       ],
     );
   }

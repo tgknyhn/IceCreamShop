@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ice_cream_shop/view/home/widgets/popular_ice_cream.dart';
-import 'package:ice_cream_shop/view/home/widgets/top_item.dart';
+import 'package:ice_cream_shop/screens/view/home/widgets/popular_ice_cream.dart';
+import 'package:ice_cream_shop/screens/view/home/widgets/top_item.dart';
 import 'widgets/greeting.dart';
 import 'widgets/search_bar.dart';
 import 'widgets/top_flavours.dart';
@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: homeConstrainedBox(width, height),
     );
   }

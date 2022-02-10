@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/init/constants/image_constants.dart';
-import '../../../core/init/constants/padding_constants.dart';
+
+import '../../../../core/init/constants/image_constants.dart';
+import '../../../../core/init/constants/padding_constants.dart';
 
 class Greeting extends StatelessWidget {
   const Greeting({Key? key}) : super(key: key);

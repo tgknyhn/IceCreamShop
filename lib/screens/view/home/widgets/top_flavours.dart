@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../../core/init/constants/border_constants.dart';
-import '../../../core/init/constants/button_size_constants.dart';
-import '../../../core/init/constants/dollar_size_constants.dart';
-import '../../../core/init/constants/image_constants.dart';
-import '../../../core/init/constants/margin_constants.dart';
-import '../../../core/init/constants/padding_constants.dart';
-import '../../../core/init/enums/star_size_enum.dart';
-import '../../../core/init/theme/color_scheme.dart';
-import '../../../core/widgets/add_button.dart';
-import '../../../core/widgets/dollar_sign.dart';
-import '../../../core/widgets/star.dart';
+
+import '../../../../core/init/constants/border_constants.dart';
+import '../../../../core/init/constants/button_size_constants.dart';
+import '../../../../core/init/constants/dollar_size_constants.dart';
+import '../../../../core/init/constants/image_constants.dart';
+import '../../../../core/init/constants/margin_constants.dart';
+import '../../../../core/init/constants/padding_constants.dart';
+import '../../../../core/init/enums/star_size_enum.dart';
+import '../../../../core/init/theme/color_scheme.dart';
+import '../../../../core/widgets/add_button.dart';
+import '../../../../core/widgets/dollar_sign.dart';
+import '../../../../core/widgets/star.dart';
 
 class TopFlavours extends StatefulWidget {
   const TopFlavours({Key? key, required this.width, required this.height, required this.rate, required this.price}) : super(key: key);
@@ -76,15 +77,7 @@ class _TopFlavoursState extends State<TopFlavours> {
         DollarSign(size: DollarSizeConstants.instance.sizeMedium),
         priceText(),
         const Spacer(flex: 2),
-        AddButton(
-          size: ButtonSizeConstants.instance.max,
-          color: HomeColorScheme.instance?.vanillaDark,
-          image: Image.asset(ImageConstants.instance.vanilla),
-          productName: 'Vanilla Ice Cream',
-          productPrice: widget.price,
-          productReviewCount: widget.reviewCount,
-          productScore: widget.rate,
-        ),
+        AddButton(size: ButtonSizeConstants.instance.max, productName: 'Vanilla'),
         const Spacer(flex: 1),
       ],
       mainAxisAlignment: MainAxisAlignment.start,
