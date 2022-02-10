@@ -9,6 +9,7 @@ import '../../../core/widgets/dollar_sign.dart';
 import '../../../core/widgets/star.dart';
 import '../../../models/product_model.dart';
 import 'package:like_button/like_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductPage extends StatefulWidget {
   /// ProductPage class constructor only takes one required parameter which is a [product] object
@@ -266,7 +267,7 @@ class _ProductPageState extends State<ProductPage> {
     return Padding(
       padding: EdgeInsets.all(PaddingConstants.instance.paddingVeryHigh),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () => Fluttertoast.showToast(msg: '${widget.product.name} added to your card', toastLength: Toast.LENGTH_LONG),
         child: Text("Add To Card", style: Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold)),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(widget.product.lightColor),
